@@ -1,2 +1,2 @@
 # FBMsgrHackathon
-- https://mashupawards.doorkeeper.jp/events/517681
+- https://mashupawards.doorkeeper.jp/events/51768
