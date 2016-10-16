@@ -12,7 +12,7 @@ import argparse
 import textwrap
 import os
 
-def draw_text_multilines(img, text):
+def draw_text_multilines(img, text, type):
   draw = PIL.ImageDraw.Draw(img)
   path = os.path.join(os.path.dirname(__file__), "./ipamjm.ttf")
   draw.font = PIL.ImageFont.truetype(path, 40)
@@ -21,7 +21,7 @@ def draw_text_multilines(img, text):
   max_lines = 3
   ratio_margin = 0.2
   if len(text) <= max_width:
-    treat_text_singleline(path, img_size, draw, text)
+    treat_text_singleline(path, img_size, draw, text, type)
     return
   
   lines = textwrap.wrap(text, width=max_width)
@@ -34,9 +34,13 @@ def draw_text_multilines(img, text):
     pos_set = tuple(pos.tolist()) #numpy nd array is not appropriate. Convert to a tuple 
     draw.text(pos_set, lines[i], fill="black")
 
-def treat_text_singleline(font_path, img_size, draw, text):
-  # enlarge when the text is short
-  f_size = min(300, 800/len(text))
+def treat_text_singleline(font_path, img_size, draw, text, type):
+  # enlarge when the text is short (only for type S)
+  if type == "S":
+    f_size = min(300, 800/len(text))
+  else:
+    f_size = 40
+    
   draw.font = PIL.ImageFont.truetype(font_path, f_size)
   txt_size = numpy.array(draw.font.getsize(text))
   pos = (img_size - txt_size) / 2
@@ -72,5 +76,5 @@ if __name__ == '__main__':
     abpath = os.path.join(os.path.dirname(__file__), "./emotion_all_2x/emotion_m/emotion_m"+str(index)+".png")
   img = PIL.Image.open(abpath)
   text = args.text
-  draw_text_multilines(img, text)
+  draw_text_multilines(img, text, type)
   img.save(args.output)
