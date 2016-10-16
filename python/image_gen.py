@@ -15,6 +15,8 @@ import os
 def draw_text_multilines(img, text, type):
   draw = PIL.ImageDraw.Draw(img)
   path = os.path.join(os.path.dirname(__file__), "./ipamjm.ttf")
+  if type == "S":
+    path = os.path.join(os.path.dirname(__file__), "./GenShinGothic-P-Heavy.ttf")
   draw.font = PIL.ImageFont.truetype(path, 40)
   img_size = numpy.array(img.size)
   max_width = 16
