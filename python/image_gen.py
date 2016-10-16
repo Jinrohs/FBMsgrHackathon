@@ -19,7 +19,7 @@ def draw_text_multilines(img, text):
   max_lines = 3
   ratio_margin = 0.2
   if len(text) <= max_width:
-    treat_text_singleline(img_size, draw, text)
+    treat_text_singleline(path, img_size, draw, text)
     return
   
   lines = textwrap.wrap(text, width=max_width)
@@ -32,7 +32,8 @@ def draw_text_multilines(img, text):
     pos_set = tuple(pos.tolist()) #numpy nd array is not appropriate. Convert to a tuple 
     draw.text(pos_set, lines[i], fill="black")
 
-def treat_text_singleline(img_size, draw, text):
+def treat_text_singleline(font_path, img_size, draw, text):
+  draw.font = PIL.ImageFont.truetype(font_path, 50)
   txt_size = numpy.array(draw.font.getsize(text))
   pos = (img_size - txt_size) / 2
   pos_set = tuple(pos.tolist()) #numpy nd array is not appropriate. Convert to a tuple
