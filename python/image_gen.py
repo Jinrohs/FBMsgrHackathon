@@ -8,10 +8,12 @@ import PIL.ImageDraw
 import PIL.ImageFont
 import argparse
 import textwrap
+import os
 
 def draw_text_multilines(img, text):
   draw = PIL.ImageDraw.Draw(img)
-  draw.font = PIL.ImageFont.truetype("ipamjm.ttf", 40)
+  path = os.path.join(os.path.dirname(__file__), "./ipamjm.ttf")
+  draw.font = PIL.ImageFont.truetype(path, 40)
   img_size = numpy.array(img.size)
   max_width = 16
   max_lines = 3
@@ -55,7 +57,8 @@ def parse_args():
 
 if __name__ == '__main__':
   args = parse_args()
-  img = PIL.Image.open("./emotion_m_2x/emotion_m1_2x.png")
+  abpath = os.path.join(os.path.dirname(__file__), "./emotion_m_2x/emotion_m1_2x.png")
+  img = PIL.Image.open(abpath)
   text = args.text
   draw_text_multilines(img, text)
   img.save(args.output)
