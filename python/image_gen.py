@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import numpy
+import random
+from datetime import datetime
 import sys
 import PIL.Image
 import PIL.ImageDraw
@@ -60,7 +62,14 @@ def parse_args():
 
 if __name__ == '__main__':
   args = parse_args()
-  abpath = os.path.join(os.path.dirname(__file__), "./emotion_m_2x/emotion_m1_2x.png")
+  type = args.type
+  random.seed(datetime.now())
+  if type == "S":
+    index = random.randint(1,4)
+    abpath = os.path.join(os.path.dirname(__file__), "./emotion_all_2x/emotion_s/emotion_s"+str(index)+".png")
+  else:
+    index = random.randint(1,3)
+    abpath = os.path.join(os.path.dirname(__file__), "./emotion_all_2x/emotion_m/emotion_m"+str(index)+".png")
   img = PIL.Image.open(abpath)
   text = args.text
   draw_text_multilines(img, text)
