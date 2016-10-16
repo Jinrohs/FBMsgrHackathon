@@ -35,7 +35,9 @@ def draw_text_multilines(img, text):
     draw.text(pos_set, lines[i], fill="black")
 
 def treat_text_singleline(font_path, img_size, draw, text):
-  draw.font = PIL.ImageFont.truetype(font_path, 50)
+  # enlarge when the text is short
+  f_size = min(300, 800/len(text))
+  draw.font = PIL.ImageFont.truetype(font_path, f_size)
   txt_size = numpy.array(draw.font.getsize(text))
   pos = (img_size - txt_size) / 2
   pos_set = tuple(pos.tolist()) #numpy nd array is not appropriate. Convert to a tuple
